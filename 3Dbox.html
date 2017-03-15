@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        *{
+            margin:0px;
+            padding:0px;
+            list-style: none;
+        }
+        .bigStage{
+            position:relative;
+            width:500px;
+            height:200px;
+            margin:0px auto 0px;
+            /*border:1px solid black;*/
+        }
+        .stage1 {
+            position:absolute;
+            display:flex;
+            width:500px;
+            height:50px;
+        }
+        .stage1 li{
+            perspective: 1200px;
+        }
+        .stage1 li .box{
+            width:100px;
+            height:50px;
+            transform-style: preserve-3d;
+        }
+        .stage1 li .box div{
+            position: absolute;
+            width:100px;
+            height:50px;
+            border-right:1px solid white;
+            box-sizing:border-box; 
+            text-align: center;
+            line-height: 50px;
+            cursor: pointer;
+            user-select:none;
+        }
+        .stage1 li .box div:nth-of-type(1){
+            background-color:orange;
+        }
+        .stage1 li .box div:nth-of-type(2){
+            background-color:purple;
+            transform: rotateX(-90deg) translateY(25px) translateZ(25px);
+
+        }
+        
+        @keyframes move1{
+            0%{
+                transform:rotateX(0deg) translateZ(0px);
+            }
+            100%{
+                transform:rotateX(90deg) translateZ(25px) translateY(-25px);
+            }
+        }
+         @keyframes move2{
+            0%{
+                transform:rotateX(90deg) translateZ(25px) translateY(-25px);
+            }
+            100%{
+                transform:rotateX(0deg) translateZ(0px);
+            }
+        }
+
+        .stage2{
+            display: none;
+            position: absolute;
+            top:50px;
+            width:100px;
+            height:150px;
+        }
+        .stage2 li {
+            perspective: 1200px;
+        }
+        .stage2 li .box{
+            width:100px;
+            height:50px;
+            transform-style:preserve-3d;
+        }
+        .stage2 li .box div{
+            position: absolute;
+            width:100px;
+            height:50px;
+            text-align:center;
+            line-height:50px;
+            box-sizing: border-box;
+            border-bottom:1px solid white;
+            cursor: pointer;
+            user-select:none;
+        }
+        .stage2 li .box div:nth-of-type(1){
+            background-color:orange;
+        }
+        .stage2 li .box div:nth-of-type(2){
+            background-color:pink;
+            transform:rotateX(-90deg) translateY(25px) translateZ(25px);
+        }
+        .stage2 li #bottom div{
+            border-bottom:0px solid white;
+        }
+    </style>
+</head>
+<body>
+    <div class="bigStage">
+        <ul class="stage1">
+            <li>
+                <div class="box"  id="only">
+                    <div>Apple</div>
+                    <div>steve jobs</div>
+                </div>
+            </li>
+            <li>
+                <div class="box">
+                    <div>Alphabet</div>
+                    <div>Larry Page</div>
+                </div>
+            </li>
+            <li>
+                <div class="box">
+                    <div>Facebook</div>
+                    <div>Zuckerberg</div>
+                </div>
+            </li>
+            <li>
+                <div class="box">
+                    <div>Amazon</div>
+                    <div>Jeff Bezos</div>
+                </div>
+            </li>
+            <li>
+                <div class="box">
+                    <div>Tesla</div>
+                    <div>Elon Musk</div>
+                </div>
+            </li>
+        </ul>
+
+        <ul class="stage2">
+            <li>
+                <div class="box">
+                    <div>Mac</div>
+                    <div>macbook</div>
+                </div>
+            </li>
+            <li>
+                <div class="box">
+                    <div>iphone</div>
+                    <div>iphone8</div>
+                </div>
+            </li>
+            <li>
+                <div class="box" id="bottom">
+                    <div>ipad</div>
+                    <div>ipad pro</div>
+                </div>
+            </li>
+        </ul>
+    </div>
+   
+    <script>
+        var box = document.getElementsByClassName('box');
+        var stage2 = document.getElementsByClassName('stage2')[0],
+            only = document.getElementById('only');
+        var len = box.length;
+        
+
+        for(var i = 1; i < len; i++){
+            (function (j) { 
+                    only.onmouseover = function (){
+                        stage2.style.display = "block";
+                        box[0].style.animation = "move1 450ms ease both";
+                    }
+                    only.onmouseout = function () {
+                        stage2.style.display = "none";
+                        box[0].style.animation = "move2 450ms ease both";
+                    }
+                    box[j].onmouseover = function () {
+                        box[j].style.animation = "move1 450ms ease both";
+                    }
+                    box[j].onmouseout = function () {
+                        box[j].style.animation = "move2 450ms ease both";
+                    } 
+            } (i))
+        }
+        
+        stage2.onmouseover = function () {
+            stage2.style.display = "block";
+        }
+        stage2.onmouseout = function () {
+            stage2.style.display = "none";
+        }
+        
+
+    </script>
+</body>
+</html>
